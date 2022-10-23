@@ -1,10 +1,10 @@
 resource "aws_iam_role" "instance_profile_iam_role" {
-  name               = "${var.name}-instance-profile"
+  name               = "${var.name}-iam-role"
   assume_role_policy = data.aws_iam_policy_document.ssm_instance_profile_iam_role_assume_role_policy.json
 }
 
 resource "aws_iam_instance_profile" "ssm_instance_profile" {
-  name = "ssm_instance_profile"
+  name = "${var.name}-instance-profile"
   role = aws_iam_role.instance_profile_iam_role.name
 }
 
