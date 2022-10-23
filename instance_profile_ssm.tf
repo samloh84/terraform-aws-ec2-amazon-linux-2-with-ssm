@@ -1,26 +1,26 @@
-resource "aws_iam_role" "ssm_instance_profile_iam_role" {
+resource "aws_iam_role" "instance_profile_iam_role" {
   name               = "${var.name}-instance-profile"
   assume_role_policy = data.aws_iam_policy_document.ssm_instance_profile_iam_role_assume_role_policy.json
 }
 
 resource "aws_iam_instance_profile" "ssm_instance_profile" {
   name = "ssm_instance_profile"
-  role = aws_iam_role.ssm_instance_profile_iam_role.name
+  role = aws_iam_role.instance_profile_iam_role.name
 }
 
 
 resource "aws_iam_role_policy_attachment" "ssm_instance_profile_iam_role_ssm_managed_instance_core_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  role       = aws_iam_role.ssm_instance_profile_iam_role.name
+  role       = aws_iam_role.instance_profile_iam_role.name
 }
 resource "aws_iam_role_policy_attachment" "ssm_instance_profile_iam_role_cloudwatch_agent_server_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-  role       = aws_iam_role.ssm_instance_profile_iam_role.name
+  role       = aws_iam_role.instance_profile_iam_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_instance_profile_iam_role_ssm_instance_profile_iam_policy" {
   policy_arn = aws_iam_policy.ssm_instance_profile_iam_policy.arn
-  role       = aws_iam_role.ssm_instance_profile_iam_role.name
+  role       = aws_iam_role.instance_profile_iam_role.name
 }
 
 // https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html
